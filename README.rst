@@ -30,13 +30,13 @@ Packaged Code_Aster is not compiled with MPI support.
 Code_Aster 12.7 (stable)
 ************************
 
-The following section is based on a `guide for compiling a Parallel version of Code_Aster <https://sites.google.com/site/codeastersalomemeca/home/code_asterno-heiretuka/parallel-code_aster-12-4-english>`_.
+The following section is based on a `guide for compiling a Parallel version of Code_Aster <https://sites.google.com/site/codeastersalomemeca/home/code_asterno-heiretuka/parallel-code_aster-12-4-english>`_. It is assumed that all of the following programs will be built from source with the exception of packages listed under `Prerequisites`_.
 
-The following environmental variables should be set when building software from source:
+The following environmental variables should be set:
 
 * ``LDFLAGS="-L${HOME}/aster/lib"`` # Or use whatever ``PREFIX`` you are using
 
-The following parameters should be used to configure software that will be built from source:
+The following parameters should be used to configure software:
 
 * ``--prefix="${HOME}/aster"`` # Use whatever directory you want
 
@@ -70,6 +70,8 @@ OpenBLAS 0.2.19
 ===============
 
 According to an `R benchmark <http://blog.nguyenvq.com/blog/2014/11/10/optimized-r-and-python-standard-blas-vs-atlas-vs-openblas-vs-mkl/>`_, `OpenBLAS <https://www.openblas.net/>`_ is significantly faster than `Netlib BLAS <http://www.netlib.org/blas/>`_. The `Intel MKL <https://software.intel.com/en-us/intel-mkl>`_ is supposedly the fastest out of all of them.
+
+The following environmental variables:
 
 Code_Aster 12.7 (stable)
 ========================

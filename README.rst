@@ -24,7 +24,7 @@ Seems to be able to do the job. The ability to use it with supercomputing cluste
 Salome-Meca 2016
 ****************
 
-Source: http://www.code-aster.org/spip.php?article303
+Source: http://www.code-aster.org/FICHIERS/SALOME-MECA-2016-LGPL-1.tgz
 
 Packaged Code_Aster is not compiled with MPI support.
 
@@ -47,11 +47,6 @@ The following parameters should be used to configure software:
 
 Make sure that you are always using binaries from ``${PREFIX}/bin``.
 
-TODO
-----
-
-* Check if autotools is a viable method for bootstrapping everything from source.
-
 Prerequisites
 -------------
 
@@ -61,6 +56,12 @@ The following packages should be installed:
 
 * ``build-essential``
 * ``gfortran``
+
+TODO
+----
+
+* Check if autotools is a viable method for bootstrapping everything from source.
+* Investigate the probability that using the `Intel C++ and Fortran Compilers <https://software.intel.com/en-us/intel-compilers>`_ will give better performance.
 
 Open MPI
 ========
@@ -88,7 +89,15 @@ According to an `R benchmark <http://blog.nguyenvq.com/blog/2014/11/10/optimized
 
 The following variables should be set:
 
+* ``USE_OPENMP=1``
+* ``OMP_NUM_THREADS=4`` # Not sure if this is used during compile-time or run-time
 * ``TARGET="HASWELL"`` # Assuming you are using an Intel Haswell processor. If not, see `TargetList.txt <https://github.com/xianyi/OpenBLAS/blob/develop/TargetList.txt>`_ for other valid targets.
+
+ScaLAPACK
+=========
+
+| Version: 2.0.2
+| Source: http://www.netlib.org/scalapack/scalapack-2.0.2.tgz
 
 Code_Aster
 ==========

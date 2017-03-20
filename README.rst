@@ -20,11 +20,12 @@ Ansys AIM R17.0
 
 Seems to be able to do the job. The ability to use it with supercomputing clusters was not investigated.
 
-****************
-Salome-Meca 2016
-****************
+***********
+Salome-Meca
+***********
 
-Source: http://www.code-aster.org/FICHIERS/SALOME-MECA-2016-LGPL-1.tgz
+| Version: 2016.1
+| Source: http://www.code-aster.org/FICHIERS/SALOME-MECA-2016-LGPL-1.tgz
 
 Packaged Code_Aster is not compiled with MPI support.
 
@@ -39,6 +40,7 @@ The following variables should be set:
 * ``PREFIX="${HOME}/aster"`` # Use whatever directory you want
 * ``CC="mpicc"`` # Assuming `Open MPI`_ has been installed
 * ``CPP="mpiCC"`` # Assuming `Open MPI`_ has been installed.
+* ``CFLAGS="-I${PREFIX}/include -fopenmp"``
 * ``LDFLAGS="-L${PREFIX}/lib"``
 
 The following parameters should be used to configure software:
@@ -50,7 +52,7 @@ Make sure that you are always using binaries from ``${PREFIX}/bin``.
 Prerequisites
 -------------
 
-The operating system used for this project is Ubuntu 16.04.
+The operating system used for this project is a minimal Ubuntu 16.04 installation.
 
 The following packages should be installed:
 
@@ -60,6 +62,7 @@ The following packages should be installed:
 TODO
 ----
 
+* Check possible performance gains by using the ``-Ofast`` CFLAG
 * Check if autotools is a viable method for bootstrapping everything from source.
 * Investigate the probability that using the `Intel C++ and Fortran Compilers <https://software.intel.com/en-us/intel-compilers>`_ will give better performance.
 

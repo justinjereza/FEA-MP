@@ -24,6 +24,8 @@ Seems to be able to do the job. The ability to use it with supercomputing cluste
 Salome-Meca 2016
 ****************
 
+Source: http://www.code-aster.org/spip.php?article303
+
 Packaged Code_Aster is not compiled with MPI support.
 
 ************************
@@ -32,8 +34,11 @@ Code_Aster 12.7 (stable)
 
 The following section is based on a `guide for compiling a Parallel version of Code_Aster <https://sites.google.com/site/codeastersalomemeca/home/code_asterno-heiretuka/parallel-code_aster-12-4-english>`_. It is assumed that all of the following programs will be built from source with the exception of packages listed under `Prerequisites`_.
 
-The following environmental variables should be set:
+The following variables should be set:
 
+
+* ``CC="mpicc"`` # Assuming `Open MPI`_ has been installed
+* ``CPP="mpiCC"`` # Assuming `Open MPI`_ has been installed.
 * ``LDFLAGS="-L${HOME}/aster/lib"`` # Or use whatever ``PREFIX`` you are using
 
 The following parameters should be used to configure software:
@@ -57,8 +62,10 @@ The following packages should be installed:
 * ``build-essential``
 * ``gfortran``
 
-Open MPI 2.0.2
-==============
+Open MPI
+========
+
+Version: 2.0.2
 
 TODO
 ----
@@ -66,17 +73,21 @@ TODO
 * Check why there are JDK options for ``configure``.
 * Investigate building with support for CUDA (``--with-cuda``). AWS has GPU instances available running nVidia Teslas, K520s, and M2050s.
 
-OpenBLAS 0.2.19
-===============
+OpenBLAS
+========
+
+Version: 0.2.19
 
 According to an `R benchmark <http://blog.nguyenvq.com/blog/2014/11/10/optimized-r-and-python-standard-blas-vs-atlas-vs-openblas-vs-mkl/>`_, `OpenBLAS <https://www.openblas.net/>`_ is significantly faster than `Netlib BLAS <http://www.netlib.org/blas/>`_. The `Intel MKL <https://software.intel.com/en-us/intel-mkl>`_ is supposedly the fastest out of all of them.
 
-The following environmental variables:
+The following variables should be set:
 
-Code_Aster 12.7 (stable)
-========================
+* ``TARGET=HASWELL`` # Assuming you are using an Intel Haswell processor. If not, see `TargetList.txt <https://github.com/xianyi/OpenBLAS/blob/develop/TargetList.txt>`_ for other valid targets.
+
+Code_Aster
+==========
+
+Version: 12.7 (stable)
+Source: http://www.code-aster.org/spip.php?article272
 
 The following environmental variables should be set when building from source:
-
-* ``CC="mpicc"``
-* ``CPP="mpiCC"``

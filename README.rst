@@ -2,7 +2,11 @@
 Finite Element Analysis Multiprocessing System
 ##############################################
 
+Copyright |copy| 2017 by `Professor Torsten Calvi Corporation <http://torstencalvi.com/>`_. All rights reserved.
+
 This project is being done under contract for `Professor Torsten Calvi Corporation <http://torstencalvi.com/>`_. The company has graciously allowed public access to documentation and code related this project.
+
+.. |copy|   unicode:: U+000A9 .. COPYRIGHT SIGN
 
 ***********************************
 Autodesk Inventor Professional 2017
@@ -44,6 +48,7 @@ Open MPI
 TODO
 ----
 
+* Check why there are JDK options for ``configure``.
 * Investigate building with support for CUDA (``--with-cuda``). AWS has GPU instances available running nVidia Teslas, K520s, and M2050s.
 
 OpenBLAS

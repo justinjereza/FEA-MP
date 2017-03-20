@@ -36,16 +36,16 @@ The following section is based on a `guide for compiling a Parallel version of C
 
 The following variables should be set:
 
-
+* ``PREFIX="${HOME}/aster"`` # Use whatever directory you want
 * ``CC="mpicc"`` # Assuming `Open MPI`_ has been installed
 * ``CPP="mpiCC"`` # Assuming `Open MPI`_ has been installed.
-* ``LDFLAGS="-L${HOME}/aster/lib"`` # Or use whatever ``PREFIX`` you are using
+* ``LDFLAGS="-L${PREFIX}/lib"``
 
 The following parameters should be used to configure software:
 
-* ``--prefix="${HOME}/aster"`` # Use whatever directory you want
+* ``--prefix="${PREFIX}"``
 
-Make sure that you are always using binaries from ``PREFIX``.
+Make sure that you are always using binaries from ``${PREFIX}/bin``.
 
 TODO
 ----
@@ -67,6 +67,8 @@ Open MPI
 
 Version: 2.0.2
 
+``./configure --prefix="${PREFIX}" && make -j4 && make install``
+
 TODO
 ----
 
@@ -77,6 +79,8 @@ OpenBLAS
 ========
 
 Version: 0.2.19
+
+``TARGET=HASWELL make -j4 && make install``
 
 According to an `R benchmark <http://blog.nguyenvq.com/blog/2014/11/10/optimized-r-and-python-standard-blas-vs-atlas-vs-openblas-vs-mkl/>`_, `OpenBLAS <https://www.openblas.net/>`_ is significantly faster than `Netlib BLAS <http://www.netlib.org/blas/>`_. The `Intel MKL <https://software.intel.com/en-us/intel-mkl>`_ is supposedly the fastest out of all of them.
 

@@ -6,7 +6,7 @@ Copyright |copy| 2017 by `Professor Torsten Calvi Corporation <http://torstencal
 
 This project is being done under contract for `Professor Torsten Calvi Corporation <http://torstencalvi.com/>`_. The company has graciously allowed public access to documentation and code related this project.
 
-.. |copy|   unicode:: U+000A9 .. COPYRIGHT SIGN
+.. |copy| unicode:: U+000A9 .. COPYRIGHT SIGN
 
 ***********************************
 Autodesk Inventor Professional 2017
@@ -42,8 +42,23 @@ The following parameters should be used to configure software that will be built
 
 Make sure that you are always using binaries from ``PREFIX``.
 
-Open MPI
-========
+TODO
+----
+
+* Check if autotools is a viable method for bootstrapping everything from source.
+
+Prerequisites
+-------------
+
+The operating system used for this project is Ubuntu 16.04.
+
+The following packages should be installed:
+
+* ``build-essential``
+* ``gfortran``
+
+Open MPI 2.0.2
+==============
 
 TODO
 ----
@@ -51,14 +66,15 @@ TODO
 * Check why there are JDK options for ``configure``.
 * Investigate building with support for CUDA (``--with-cuda``). AWS has GPU instances available running nVidia Teslas, K520s, and M2050s.
 
-OpenBLAS
-========
+OpenBLAS 0.2.19
+===============
 
-According to an `R benchmark <http://blog.nguyenvq.com/blog/2014/11/10/optimized-r-and-python-standard-blas-vs-atlas-vs-openblas-vs-mkl/>`_, OpenBLAS is significantly faster than `Netlib BLAS <http://www.netlib.org/blas/>`_. The `Intel MKL <https://software.intel.com/en-us/intel-mkl>`_ is supposedly the fastest out of all of them.
+According to an `R benchmark <http://blog.nguyenvq.com/blog/2014/11/10/optimized-r-and-python-standard-blas-vs-atlas-vs-openblas-vs-mkl/>`_, `OpenBLAS <https://www.openblas.net/>`_ is significantly faster than `Netlib BLAS <http://www.netlib.org/blas/>`_. The `Intel MKL <https://software.intel.com/en-us/intel-mkl>`_ is supposedly the fastest out of all of them.
 
-### Code_Aster (MPI)
+Code_Aster 12.7 (stable)
+========================
 
 The following environmental variables should be set when building from source:
 
-* ``CC=mpicc``
-* ``CPP=mpiCC``
+* ``CC="mpicc"``
+* ``CPP="mpiCC"``

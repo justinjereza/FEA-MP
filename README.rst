@@ -18,7 +18,7 @@ Inventor's stress analysis only supports solving linear, static problems. See `s
 Ansys AIM R17.0
 ***************
 
-Seems to be able to do the job. The ability to use it with supercomputing clusters was not investigated.
+It seems to be able to do the job. The ability to use it with supercomputing clusters was not investigated.
 
 ***********
 Salome-Meca
@@ -35,17 +35,17 @@ Code_Aster 12.7 (stable)
 
 The following section is based on a `guide for compiling a Parallel version of Code_Aster <https://sites.google.com/site/codeastersalomemeca/home/code_asterno-heiretuka/parallel-code_aster-12-4-english>`_. It is assumed that all of the following programs will be built from source with the exception of packages listed under `Prerequisites`_.
 
-The following variables should be set:
+The following variables should be set::
 
-* ``PREFIX="${HOME}/aster"`` # Use whatever directory you want
-* ``CC="mpicc"`` # Assuming `Open MPI`_ has been installed
-* ``CPP="mpiCC"`` # Assuming `Open MPI`_ has been installed.
-* ``CFLAGS="-I${PREFIX}/include -fopenmp"``
-* ``LDFLAGS="-L${PREFIX}/lib"``
+    PREFIX="${HOME}/aster"                  # Use whatever directory you want
+    CC="mpicc"                              # Assuming `Open MPI`_ has been installed
+    CPP="mpiCC"                             # Assuming `Open MPI`_ has been installed.
+    CFLAGS="-I${PREFIX}/include -fopenmp"
+    LDFLAGS="-L${PREFIX}/lib"
 
-The following parameters should be used to configure software:
+The following parameters should be used to configure software::
 
-* ``--prefix="${PREFIX}"``
+--prefix="${PREFIX}"
 
 Make sure that you are always using binaries from ``${PREFIX}/bin``.
 
@@ -54,10 +54,10 @@ Prerequisites
 
 The operating system used for this project is a minimal Ubuntu 16.04 installation.
 
-The following packages should be installed:
+The following packages should be installed::
 
-* ``build-essential``
-* ``gfortran``
+    build-essential
+    gfortran
 
 TODO
 ----
@@ -88,19 +88,29 @@ OpenBLAS
 
 ``TARGET="HASWELL" make -j4 && make install``
 
+We assume that your ``TARGET`` is an Intel Haswell processor. If not, see `TargetList.txt <https://github.com/xianyi/OpenBLAS/blob/develop/TargetList.txt>`_ for other valid targets.
+
 According to an `R benchmark <http://blog.nguyenvq.com/blog/2014/11/10/optimized-r-and-python-standard-blas-vs-atlas-vs-openblas-vs-mkl/>`_, `OpenBLAS <https://www.openblas.net/>`_ is significantly faster than `Netlib BLAS <http://www.netlib.org/blas/>`_. The `Intel MKL <https://software.intel.com/en-us/intel-mkl>`_ is supposedly the fastest out of all of them.
 
-The following variables should be set:
+The following variables should be set::
 
-* ``USE_OPENMP=1``
-* ``OMP_NUM_THREADS=4`` # Not sure if this is used during compile-time or run-time
-* ``TARGET="HASWELL"`` # Assuming you are using an Intel Haswell processor. If not, see `TargetList.txt <https://github.com/xianyi/OpenBLAS/blob/develop/TargetList.txt>`_ for other valid targets.
+    USE_OPENMP=1
+    OMP_NUM_THREADS=4 # Not sure if this is used during compile-time or run-time
+    TARGET="HASWELL"
 
 ScaLAPACK
 =========
 
 | Version: 2.0.2
 | Source: http://www.netlib.org/scalapack/scalapack-2.0.2.tgz
+
+Copy ``SLmake.inc.example`` to ``SLmake.inc`` and add or edit the following::
+
+    PREFIX = $(ENV{HOME})/aster
+    FCFLAGS = -I$(PREFIX)/include -L$(PREFIX)/lib -O3 -fopenmp
+    CCFLAGS = -I$(PREFIX)/include -L$(PREFIX)/lib -O3 -fopenmp
+    BLASLIB = $(PREFIX)/lib/libopenblas.a
+    LAPACKLIB = $(PREFIX)/lib/libopenblas.a
 
 Code_Aster
 ==========

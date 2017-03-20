@@ -65,7 +65,8 @@ The following packages should be installed:
 Open MPI
 ========
 
-Version: 2.0.2
+| Version: 2.0.2
+| Source: https://www.open-mpi.org/software/ompi/v2.0/downloads/openmpi-2.0.2.tar.bz2
 
 ``./configure --prefix="${PREFIX}" && make -j4 && make install``
 
@@ -78,20 +79,21 @@ TODO
 OpenBLAS
 ========
 
-Version: 0.2.19
+| Version: 0.2.19
+| Source: http://github.com/xianyi/OpenBLAS/archive/v0.2.19.tar.gz
 
-``TARGET=HASWELL make -j4 && make install``
+``TARGET="HASWELL" make -j4 && make install``
 
 According to an `R benchmark <http://blog.nguyenvq.com/blog/2014/11/10/optimized-r-and-python-standard-blas-vs-atlas-vs-openblas-vs-mkl/>`_, `OpenBLAS <https://www.openblas.net/>`_ is significantly faster than `Netlib BLAS <http://www.netlib.org/blas/>`_. The `Intel MKL <https://software.intel.com/en-us/intel-mkl>`_ is supposedly the fastest out of all of them.
 
 The following variables should be set:
 
-* ``TARGET=HASWELL`` # Assuming you are using an Intel Haswell processor. If not, see `TargetList.txt <https://github.com/xianyi/OpenBLAS/blob/develop/TargetList.txt>`_ for other valid targets.
+* ``TARGET="HASWELL"`` # Assuming you are using an Intel Haswell processor. If not, see `TargetList.txt <https://github.com/xianyi/OpenBLAS/blob/develop/TargetList.txt>`_ for other valid targets.
 
 Code_Aster
 ==========
 
-Version: 12.7 (stable)
-Source: http://www.code-aster.org/spip.php?article272
+| Version: 12.7 (stable)
+| Source: http://www.code-aster.org/FICHIERS/aster-full-src-12.7.0-1.noarch.tar.gz
 
 The following environmental variables should be set when building from source:

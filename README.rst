@@ -35,6 +35,8 @@ Code_Aster 12.7 (stable)
 
 The following section is based on a `guide for compiling a Parallel version of Code_Aster <https://sites.google.com/site/codeastersalomemeca/home/code_asterno-heiretuka/parallel-code_aster-12-4-english>`_. It is assumed that all of the following programs will be built from source with the exception of packages listed under `Prerequisites`_.
 
+When running Code_Aster, use OpenMP to set the number of physical cores and Open MPI for the number of nodes.
+
 The following variables should be set::
 
     PREFIX="${HOME}/aster"                  # Use whatever directory you want
@@ -43,27 +45,39 @@ The following variables should be set::
     CFLAGS="-I${PREFIX}/include -O2 -fopenmp"
     LDFLAGS="-L${PREFIX}/lib"
 
-The following parameters should be used to configure software::
+The following parameters should be used to configure all software::
 
---prefix="${PREFIX}"
+    --prefix="${PREFIX}"
 
 Make sure that you are always using binaries from ``${PREFIX}/bin``.
 
 Prerequisites
 -------------
 
-The operating system used for this project is a minimal Ubuntu 16.04 installation.
+    A minimal Ubuntu 16.04 installation is used for this project.
 
-The following packages should be installed::
+The following packages are required::
 
     build-essential
     gfortran
+    libz-dev
+
+The following are optional packages::
+
+    cmake       # Used by ScaLAPACK and Code_Aster
+    grace       # Used by Code_Aster
+    python-qt4  # For eficasQt
+
+I have no idea why Code_Aster checks for the following packages::
+
+    flex
+    bison
 
 Supporting Python packages (requires python-dev)::
 
     setuptools
     pip
-    matplotlib  # Graphs PETSc benchmark results and also provides numpy as a dependency
+    matplotlib  # Graphs PETSc benchmark results and also provides numpy, Code_Aster dependency
 
 TODO
 ----
@@ -151,15 +165,17 @@ Unused configure options::
 
     --with-mpi-dir="${PREFIX}/lib/openmpi"
     --with-shared-libraries=0
-    --configModules=PETSc.Configure
-    --optionsModule=config.compilerOptions
+    --configModules="PETSc.Configure"
+    --optionsModule="config.compilerOptions"
 
 Benchmarks
 ----------
 
-It appears that the optimum number of threads is equal to the total number of physical cores. Performance goes down when hyper-threading is used as illustrated in the following graph where we see a peak performance increase of 4% on an Intel Core i3-4150 with 16 GB of DDR3-1600 MHz RAM:
+It appears that the optimum number of threads is equal to the total number of physical cores. Performance goes down when `hyper-threading <https://en.wikipedia.org/wiki/Hyper-threading>`_ is used as illustrated in the following graph where we see a peak performance increase of 4% on an Intel Core i3-4150 with 16 GB of DDR3-1600 MHz RAM:
 
 .. image:: petsc-scaling.png
+
+Theoretically, due to the nature of the calculations being performed it is unlikely that there will be a cache miss or branch misprediction hence it is unlikely to cause a single processor core to stall. Under these conditions, using hyper-threading may cause a single core to overload and perform worse than a single non-hyper-threaded core.
 
 TODO
 ----
@@ -173,3 +189,57 @@ Code_Aster
 | Source: http://www.code-aster.org/FICHIERS/aster-full-src-12.7.0-1.noarch.tar.gz
 
 The following environmental variables should be set when building from source:
+
+Sequential Version
+------------------
+
+This is necessary to install the ``MUMPS`` dependencies ``SCOTCH`` and ``Metis``. An MPI version of MUMPS will then be rebuilt. The dependencies can also be installed individually and removes the necessity of building this version.
+
+The following variables should be set in ``setup.cfg``::
+
+    PREFER_COMPILER = 'GNU_without_MATH'
+    MATHLIB = '/home/justin/aster/lib/libopenblas.a'
+    HOME_HDF = '/home/justin/aster/public/hdf-1.8.14'
+    HOME_MED = '/home/justin/aster/public/med-3.2.0'
+    HOME_SCOTCH = '/home/justin/aster/public/scotch-5.1.11'
+    HOME_MUMPS = '/home/justin/aster/public/mumps-4.10.0'
+
+``PREFER_COMPILER`` is simply a class in ``check_compilers.py`` suffixed with ``_COMPILER``.
+
+The following parameter is optional for configure::
+
+    --cfg="setup.cfg"           # Optional
+
+HDF5
+
+| Version: 1.8.14
+| Source: http://www.code-aster.org/FICHIERS/aster-full-src-12.7.0-1.noarch.tar.gz
+
+Unset ``CC`` and ``CPP`` during installation.
+
+The following parameters should be used during configure::
+
+    --prefix="${PREFIX}/public/hdf5-1.8.14"
+    --enable-parallel
+
+MED
+
+| Version: 3.2.0
+| Source: http://www.code-aster.org/FICHIERS/aster-full-src-12.7.0-1.noarch.tar.gz
+
+The following variables should be set::
+
+    MPICC="mpicc"
+    MPICXX="mpiCC"
+    MPIFC="mpif90"
+    MPIF77="mpif77"
+
+The following parameters should be used during configure::
+
+    --prefix="${PREFIX}/public/med-3.2.0"
+    --with-f90="f95"
+
+TODO
+----
+
+* Compile sequential

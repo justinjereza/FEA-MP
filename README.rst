@@ -60,6 +60,7 @@ The following packages are required::
 
     build-essential
     gfortran
+    libtool
     libz-dev
 
 The following are optional packages::
@@ -225,7 +226,12 @@ Unset ``CC`` and ``CPP`` during installation.
 The following parameters should be used during configure::
 
     --prefix="${PREFIX}/public/hdf5-1.8.14"
+    --enable-shared
     --enable-parallel
+
+TODO
+
+* There's no shared library built and MED depends on it. Install libtool. Might have an effect.
 
 MED
 
@@ -242,7 +248,6 @@ The following variables should be set::
 The following parameters should be used during configure::
 
     --prefix="${PREFIX}/public/med-3.2.0"
-    --with-f90="f95"
 
 TODO
 ----

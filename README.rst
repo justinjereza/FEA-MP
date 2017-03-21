@@ -124,6 +124,13 @@ Run ``make``.
 | You can specify the BLAS libraries in cmake with ``cmake -DBLAS_LIBRARIES="$PREFIX/lib/libopenblas.a" -DLAPACK_LIBRARIES="$PREFIX/lib/libopenblas.a" .``
 | Just ``cmake .`` seems to be ignoring specified ``BLASLIB`` and ``LAPACKLIB``.
 
+Installer
+---------
+
+The ScaLAPACK installer was tested with the following parameters::
+
+    python setup.py --prefix="${HOME}/tmp-scalapack" --ldflags_c="-O3 -fopenmp" --ldflags_fc="-O3 -fopenmp" --blaslib="${HOME}/aster/lib/libopenblas.a" --lapacklib="${HOME}/aster/lib/libopenblas.a"
+
 PETSc
 =====
 

@@ -38,9 +38,9 @@ The following section is based on a `guide for compiling a Parallel version of C
 The following variables should be set::
 
     PREFIX="${HOME}/aster"                  # Use whatever directory you want
-    CC="mpicc"                              # Assuming `Open MPI`_ has been installed
-    CPP="mpiCC"                             # Assuming `Open MPI`_ has been installed.
-    CFLAGS="-I${PREFIX}/include -fopenmp"
+    CC="mpicc"                              # Assuming Open MPI has been installed
+    CPP="mpiCC"                             # Assuming Open MPI has been installed.
+    CFLAGS="-I${PREFIX}/include -O2 -fopenmp"
     LDFLAGS="-L${PREFIX}/lib"
 
 The following parameters should be used to configure software::
@@ -103,6 +103,7 @@ ScaLAPACK
 
 | Version: 2.0.2
 | Source: http://www.netlib.org/scalapack/scalapack-2.0.2.tgz
+| Installer: http://www.netlib.org/scalapack/scalapack_installer.tgz
 
 Copy ``SLmake.inc.example`` to ``SLmake.inc`` and add or edit the following::
 
@@ -111,6 +112,17 @@ Copy ``SLmake.inc.example`` to ``SLmake.inc`` and add or edit the following::
     CCFLAGS = -I$(PREFIX)/include -L$(PREFIX)/lib -O3 -fopenmp
     BLASLIB = $(PREFIX)/lib/libopenblas.a
     LAPACKLIB = $(PREFIX)/lib/libopenblas.a
+
+Run ``make``.
+
+| You can specify the BLAS libraries in cmake with ``cmake -DBLAS_LIBRARIES="$PREFIX/lib/libopenblas.a" -DLAPACK_LIBRARIES="$PREFIX/lib/libopenblas.a" .``
+| Just ``cmake .`` seems to be ignoring specified ``BLASLIB`` and ``LAPACKLIB``.
+
+PETSc
+=====
+
+| Version: 3.7.5
+| Source: http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-lite-3.7.5.tar.gz
 
 Code_Aster
 ==========

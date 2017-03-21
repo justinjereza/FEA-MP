@@ -59,6 +59,12 @@ The following packages should be installed::
     build-essential
     gfortran
 
+Supporting Python packages (requires python-dev)::
+
+    setuptools
+    pip
+    matplotlib  # Graphs PETSc benchmark results and also provides numpy as a dependency
+
 TODO
 ----
 
@@ -140,6 +146,13 @@ Unused configure options::
     --with-shared-libraries=0
     --configModules=PETSc.Configure
     --optionsModule=config.compilerOptions
+
+Benchmarks
+----------
+
+It appears that the optimum number of threads is equal to the total number of physical cores. Performance goes down when hyper-threading is used as illustrated in the following graph where we see a peak performance increase of 4% on an Intel Core i3-4150 with 16 GB of DDR3-1600 MHz RAM:
+
+.. image:: petsc-scaling.png
 
 TODO
 ----

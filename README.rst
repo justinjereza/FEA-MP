@@ -124,6 +124,22 @@ PETSc
 | Version: 3.7.5
 | Source: http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-lite-3.7.5.tar.gz
 
+ML and Hypre are enabled.
+
+``./configure --prefix="${PREFIX}" --with-openmp=1 --with-mpi=1 --with-x=0 --with-debugging=0 --with-mpi-dir="${PREFIX}/lib/openmpi" --with-blas-lib="${PREFIX}/lib/libopenblas.a" --with-scalapack-lib="${PREFIX}/lib/libscalapack.a" --download-ml=yes --download-hypre=yes``
+
+Unused Configure Options
+------------------------
+
+    --with-shared-libraries=0
+    --configModules=PETSc.Configure
+    --optionsModule=config.compilerOptions
+
+TODO
+----
+
+* Check CUDA support (``--with-cuda``)
+
 Code_Aster
 ==========
 

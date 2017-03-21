@@ -82,6 +82,7 @@ Supporting Python packages (requires python-dev)::
 TODO
 ----
 
+* Check `MeshGems <http://www.meshgems.com/>`_ meshing performance. It is supported by Salome-Meca.
 * Check possible performance gains by using the ``-Ofast`` CFLAG
 * Check if autotools is a viable method for bootstrapping everything from source.
 * Investigate the probability that using the `Intel C++ and Fortran Compilers <https://software.intel.com/en-us/intel-compilers>`_ will give better performance.
@@ -199,9 +200,13 @@ The following variables should be set in ``setup.cfg``::
 
     PREFER_COMPILER = 'GNU_without_MATH'
     MATHLIB = '/home/justin/aster/lib/libopenblas.a'
-    HOME_HDF = '/home/justin/aster/public/hdf-1.8.14'
+    _install_hdf5 = False
+    HOME_HDF = '/home/justin/aster/public/hdf5-1.8.14'
+    _install_med = False
     HOME_MED = '/home/justin/aster/public/med-3.2.0'
+    _install_scotch = False
     HOME_SCOTCH = '/home/justin/aster/public/scotch-5.1.11'
+    _install_mumps = False
     HOME_MUMPS = '/home/justin/aster/public/mumps-4.10.0'
 
 ``PREFER_COMPILER`` is simply a class in ``check_compilers.py`` suffixed with ``_COMPILER``.

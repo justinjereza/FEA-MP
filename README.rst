@@ -271,6 +271,18 @@ The following parameters should be used during configure::
     --with-hdf5="${PREFIX}/public/hdf5-1.8.14"
     --with-swig
 
+METIS
+-----
+
+| Version: 4.0.3-1
+| Source: http://www.code-aster.org/FICHIERS/aster-full-src-12.7.0-1.noarch.tar.gz
+
+Add the following to ``Makefile.in``::
+
+    COPTIONS = -I$(PREFIX)/include -fPIC -fopenmp
+
+``make -j4 && make install prefix="${PREFIX}/public/metis-4.0.3"``
+
 SCOTCH
 ------
 
@@ -281,8 +293,8 @@ Add the following to ``src/Makefile.inc``::
 
     CCS = /usr/bin/gcc
     CCD = /usr/bin/gcc
-    CFLAGS="-I${PREFIX}/include -O2 -fno-stack-protector -fopenmp -Wl,--no-as-needed"
-    LDFLAGS="-L${PREFIX}/lib"
+    CFLAGS = "-I${PREFIX}/include -O2 -fno-stack-protector -fopenmp -Wl,--no-as-needed"
+    LDFLAGS = "-L${PREFIX}/lib"
     LEX = /usr/bin/flex -Pscotchyy -olex.yy.c
     RANLIB = /usr/bin/ranlib
     YACC = /usr/bin/bison -y -pscotchyy -b y
@@ -292,6 +304,16 @@ Add the following to ``src/Makefile.inc``::
 Build using ``make -j4 && make install prefix=${PREFIX}/public/scotch-5.1.11``
 
 TODO
-----
 
-* Compile sequential
+Check if PT-SCOTCH was actually built. We want the parallel version.
+
+MUMPS
+-----
+
+| Version:
+| Source: http://www.code-aster.org/FICHIERS/aster-full-src-12.7.0-1.noarch.tar.gz
+
+Copy ``Make.inc/Makefile.INTEL.PAR`` to ``Makefile.inc`` and then add the following to ``Makefile.inc``::
+
+    SCOTCHDIR = $(PREFIX)/public/scotch-5.1.11
+    ISCOTCH = -I$(SCOTCHDIR)/include

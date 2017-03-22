@@ -60,7 +60,7 @@ The following packages are required::
 
     build-essential
     gfortran
-    libtool
+    libtool     # Maybe?
     libz-dev
 
 The following are optional packages::
@@ -101,6 +101,24 @@ TODO
 
 * Check why there are JDK options for ``configure``.
 * Investigate building with support for CUDA (``--with-cuda``). AWS has GPU instances available running nVidia Teslas, K520s, and M2050s.
+
+SWIG
+====
+
+| Version: 2.0.12
+| Source: https://sourceforge.net/projects/swig/files/swig/swig-2.0.12/swig-2.0.12.tar.gz/download
+
+SWIG 3.x fails when compiling MED. An example of the error is as follows::
+
+    Error when compiling MED. ../include/H5public_extract.h:31: Error: Unknown SWIG preprocessor directive: typedef (if this is a block of target language code, delimit it with %{ and %})
+
+PCRE
+----
+
+| Version: 8.40
+| Source: ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.40.tar.bz2
+
+Install PCRE using ``Tools/pcre-build.sh``.
 
 OpenBLAS
 ========
@@ -248,6 +266,8 @@ The following variables should be set::
 The following parameters should be used during configure::
 
     --prefix="${PREFIX}/public/med-3.2.0"
+    --with-hdf5="${PREFIX}/public/hdf5-1.8.14"
+    --with-swig
 
 TODO
 ----

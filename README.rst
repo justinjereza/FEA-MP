@@ -283,6 +283,25 @@ Add the following to ``Makefile.in``::
 
 ``make -j4 && make install prefix="${PREFIX}/public/metis-4.0.3"``
 
+TODO
+
+* Check if `ParMETIS <http://glaros.dtc.umn.edu/gkhome/metis/parmetis/overview>`_ is needed for parallel partitioning. It hasn't been updated since 2013-03-30.
+
+ParMETIS
+--------
+
+| Version: 4.0.3
+| Source: http://glaros.dtc.umn.edu/gkhome/fetch/sw/parmetis/parmetis-4.0.3.tar.gz
+
+Edit ``metis/include/metis.h``::
+
+    #define IDXTYPEWIDTH 64
+    #define REALTYPEWIDTH 64
+
+``make config prefix=${PREFIX}/public/parmetis-4.0.3 && make -j4 install``
+
+Optional: ``shared=1``
+
 SCOTCH
 ------
 
@@ -315,5 +334,8 @@ MUMPS
 
 Copy ``Make.inc/Makefile.INTEL.PAR`` to ``Makefile.inc`` and then add the following to ``Makefile.inc``::
 
-    SCOTCHDIR = $(PREFIX)/public/scotch-5.1.11
-    ISCOTCH = -I$(SCOTCHDIR)/include
+    SCOTCHDIR   = $(PREFIX)/public/scotch-5.1.11
+    ISCOTCH     = -I$(SCOTCHDIR)/include
+    LSCOTCH     = -L$(SCOTCHDIR)/lib -lesmumps -lscotch -lscotcherr
+    LMETISDIR   = $(SCOTCHDIR)/lib
+    LMETIS    = -L$(LMETISDIR) -lmetis

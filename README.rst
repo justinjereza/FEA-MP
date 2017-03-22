@@ -60,19 +60,18 @@ The following packages are required::
 
     build-essential
     gfortran
+    flex
+    bison
     libtool     # Maybe?
     libz-dev
+
+``flex`` and ``bison`` are required to build SCOTCH. They provide ``lex`` and ``yacc`` respectively.
 
 The following are optional packages::
 
     cmake       # Used by ScaLAPACK and Code_Aster
     grace       # Used by Code_Aster
     python-qt4  # For eficasQt
-
-I have no idea why Code_Aster checks for the following packages::
-
-    flex
-    bison
 
 Supporting Python packages (requires python-dev)::
 
@@ -235,6 +234,7 @@ The following parameter is optional for configure::
     --cfg="setup.cfg"           # Optional
 
 HDF5
+----
 
 | Version: 1.8.14
 | Source: http://www.code-aster.org/FICHIERS/aster-full-src-12.7.0-1.noarch.tar.gz
@@ -248,10 +248,12 @@ The following parameters should be used during configure::
     --enable-parallel
 
 TODO
+----
 
 * There's no shared library built and MED depends on it. Install libtool. Might have an effect.
 
 MED
+---
 
 | Version: 3.2.0
 | Source: http://www.code-aster.org/FICHIERS/aster-full-src-12.7.0-1.noarch.tar.gz
@@ -268,6 +270,9 @@ The following parameters should be used during configure::
     --prefix="${PREFIX}/public/med-3.2.0"
     --with-hdf5="${PREFIX}/public/hdf5-1.8.14"
     --with-swig
+
+SCOTCH
+------
 
 TODO
 ----

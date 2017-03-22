@@ -60,17 +60,17 @@ The following packages are required::
 
     build-essential
     gfortran
+    cmake       # Used by ScaLAPACK and Code_Aster (Mfront).
     flex
     bison
-    libtool     # Maybe?
+    libtool     # Maybe? Just install it to be sure.
     libz-dev
 
 ``flex`` and ``bison`` are required to build SCOTCH. They provide ``lex`` and ``yacc`` respectively.
 
 The following are optional packages::
 
-    cmake       # Used by ScaLAPACK and Code_Aster
-    grace       # Used by Code_Aster
+    grace       # Used by Code_Aster (Code_Aster actually bundles this)
     python-qt4  # For eficasQt
 
 Supporting Python packages (requires python-dev)::
@@ -273,6 +273,23 @@ The following parameters should be used during configure::
 
 SCOTCH
 ------
+
+| Version: 5.1.11
+| Source: http://www.code-aster.org/FICHIERS/aster-full-src-12.7.0-1.noarch.tar.gz
+
+Add the following to ``src/Makefile.inc``::
+
+    CCS = /usr/bin/gcc
+    CCD = /usr/bin/gcc
+    CFLAGS="-I${PREFIX}/include -O2 -fno-stack-protector -fopenmp -Wl,--no-as-needed"
+    LDFLAGS="-L${PREFIX}/lib"
+    LEX = /usr/bin/flex -Pscotchyy -olex.yy.c
+    RANLIB = /usr/bin/ranlib
+    YACC = /usr/bin/bison -y -pscotchyy -b y
+
+``-Wl,--no-as-needed`` is particularly important. It passes ``--no-as-needed`` to ``ld``. Without it, linking will fail. For more information, please see `scotch-Makefile.inc <scotch-Makefile.inc>`_.
+
+Build using ``make -j4 && make install prefix=${PREFIX}/public/scotch-5.1.11``
 
 TODO
 ----

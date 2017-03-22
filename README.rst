@@ -324,7 +324,7 @@ Build using ``make -j4 && make install prefix=${PREFIX}/public/scotch-5.1.11``
 
 TODO
 
-Check if PT-SCOTCH was actually built. We want the parallel version.
+Check if PT-SCOTCH was actually built. We want the parallel version. PT_SCOTCH was not built. The libraries don't exist.
 
 MUMPS
 -----
@@ -332,10 +332,34 @@ MUMPS
 | Version:
 | Source: http://www.code-aster.org/FICHIERS/aster-full-src-12.7.0-1.noarch.tar.gz
 
-Copy ``Make.inc/Makefile.INTEL.PAR`` to ``Makefile.inc`` and then add the following to ``Makefile.inc``::
+Copy ``Make.inc/Makefile.INTEL.PAR`` to ``Makefile.inc`` and then change the following in ``Makefile.inc``::
 
     SCOTCHDIR   = $(PREFIX)/public/scotch-5.1.11
     ISCOTCH     = -I$(SCOTCHDIR)/include
     LSCOTCH     = -L$(SCOTCHDIR)/lib -lesmumps -lscotch -lscotcherr
-    LMETISDIR   = $(SCOTCHDIR)/lib
-    LMETIS    = -L$(LMETISDIR) -lmetis
+    LMETISDIR   = $(PREFIX)/public/parmetis-4.0.3/lib
+    LMETIS      = -L$(LMETISDIR) -lparmetis -lmetis
+    ORDERINGSF  = -Dscotch -Dmetis -Dpord -Dparmetis                    # -Dptscotch should be added here once we get it working
+    CC          = mpicc
+    FC          = mpif90
+    FL          = mpif90
+    RANLIB      = ranlib
+    SCALAP      = $(PREFIX)/lib/libscalapack.a $(PREFIX)/lib/libopenblas.a
+    INCPAR      = -I$(PREFIX)/include $(IPORD)
+    # Libraries removed because we're already using MPI: lam, lammpio, lamf77mpi
+    # We are missing mpi_f77 and mpi_f90
+    LIBPAR      = $(SCALAP) -L$(PREFIX)/lib/ -lmpi -lutil -ldl -lpthread
+    LIBBLAS     = -L$(PREFIX)/lib -lopenblas
+    OPTF        = -O -Dintel_ -DALLOW_NON_INIT -ffixed-line-length-0 -x f77-cpp-input -fPIC  -fopenmp
+    OPTL        = -O -fopenmp
+    OPTC        = -O -fno-stack-protector -fPIC -fopenmp
+
+Edit ``Makefile``::
+
+    topdir = "JUSTIN"
+
+``make -j4``
+
+TODO
+
+Check BLACS for ``SCALAP``.

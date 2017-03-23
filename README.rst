@@ -363,3 +363,8 @@ Edit ``Makefile``::
 TODO
 
 Check BLACS for ``SCALAP``.
+
+Code_Aster
+----------
+
+Set ``HOME_METIS`` in ``setup.cfg``. Check for others that should be set too.

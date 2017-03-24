@@ -32,9 +32,9 @@ Packaged Code_Aster is not compiled with MPI support.
 Gmsh
 ====
 
-Dependencies:
+Dependencies::
 
-* libatlas3-base
+    libatlas3-base
 
 Link the following libraries::
 
@@ -44,6 +44,14 @@ Link the following libraries::
     ln -s /usr/lib/atlas-base/libatlas.so.3 /usr/lib/libatlas.so.3gf
 
 Run Salome: ``LD_PRELOAD="/usr/lib/x86_64-linux-gnu/libgfortran.so.3" ./salome``
+
+************************************
+Attempt #2: Code_Aster 12.7 (stable)
+************************************
+
+Dependencies::
+
+    Foo
 
 ************************************
 Attempt #1: Code_Aster 12.7 (stable)

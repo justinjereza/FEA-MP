@@ -45,9 +45,12 @@ Link the following libraries::
 
 Run Salome: ``LD_PRELOAD="/usr/lib/x86_64-linux-gnu/libgfortran.so.3" ./salome``
 
-************************
-Code_Aster 12.7 (stable)
-************************
+************************************
+Attempt #1: Code_Aster 12.7 (stable)
+************************************
+
+.. attention::
+    This chapter is only provided as a reference. There were way too many dependencies that were not built correctly or required modification of the source code for them to be used properly and due to time constraints, we cannot continue pursuing this method of building Code_Aster.
 
 The following section is based on a `guide for compiling a Parallel version of Code_Aster <https://sites.google.com/site/codeastersalomemeca/home/code_asterno-heiretuka/parallel-code_aster-12-4-english>`_. It is assumed that all of the following programs will be built from source with the exception of packages listed under `Prerequisites`_.
 

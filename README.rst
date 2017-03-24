@@ -4,7 +4,7 @@ Finite Element Analysis Multiprocessing System
 
 Copyright |copy| 2017 by `Professor Torsten Calvi Corporation <http://torstencalvi.com/>`_. All rights reserved.
 
-This project is being done under contract for `Professor Torsten Calvi Corporation <http://torstencalvi.com/>`_. The company has graciously allowed public access to documentation and code related this project.
+This investigation into FEA via multiprocessing is being done under contract for `Professor Torsten Calvi Corporation <http://torstencalvi.com/>`_. The company has graciously allowed public access to documentation regarding this project.
 
 .. |copy| unicode:: U+000A9 .. COPYRIGHT SIGN
 
@@ -29,6 +29,22 @@ Salome-Meca
 
 Packaged Code_Aster is not compiled with MPI support.
 
+Gmsh
+====
+
+Dependencies:
+
+* libatlas3-base
+
+Link the following libraries::
+
+    ln -s /usr/lib/atlas-base/atlas/liblapack.so.3 /usr/lib/liblapack.so.3gf
+    ln -s /usr/lib/atlas-base/libf77blas.so.3 /usr/lib/libf77blas.so.3gf
+    ln -s /usr/lib/atlas-base/libcblas.so.3 /usr/lib/libcblas.so.3gf
+    ln -s /usr/lib/atlas-base/libatlas.so.3 /usr/lib/libatlas.so.3gf
+
+Run Salome: ``LD_PRELOAD="/usr/lib/x86_64-linux-gnu/libgfortran.so.3" ./salome``
+
 ************************
 Code_Aster 12.7 (stable)
 ************************
@@ -41,7 +57,7 @@ The following variables should be set::
 
     PREFIX="${HOME}/aster"                  # Use whatever directory you want
     CC="mpicc"                              # Assuming Open MPI has been installed
-    CPP="mpiCC"                             # Assuming Open MPI has been installed.
+    CPP="mpiCC"                             # Assuming Open MPI has been installed
     CFLAGS="-I${PREFIX}/include -O2 -fopenmp"
     LDFLAGS="-L${PREFIX}/lib"
 
@@ -52,7 +68,7 @@ The following parameters should be used to configure all software::
 Make sure that you are always using binaries from ``${PREFIX}/bin``.
 
 Prerequisites
--------------
+=============
 
     A minimal Ubuntu 16.04 installation is used for this project.
 
@@ -60,13 +76,13 @@ The following packages are required::
 
     build-essential
     gfortran
-    cmake       # Used by ScaLAPACK and Code_Aster (Mfront).
+    cmake
     flex
     bison
-    libtool     # Maybe? Just install it to be sure.
+    libtool
     libz-dev
 
-``flex`` and ``bison`` are required to build SCOTCH. They provide ``lex`` and ``yacc`` respectively.
+*Note*: ``flex`` and ``bison`` are required to build SCOTCH. They provide ``lex`` and ``yacc`` respectively.
 
 The following are optional packages::
 
@@ -212,6 +228,8 @@ The following environmental variables should be set when building from source:
 Sequential Version
 ------------------
 
+**Conclusion**: This version is not necessary if all dependencies are compiled individually such that they are all capable of multiprocessing.
+
 This is necessary to install the ``MUMPS`` dependencies ``SCOTCH`` and ``Metis``. An MPI version of MUMPS will then be rebuilt. The dependencies can also be installed individually and removes the necessity of building this version.
 
 The following variables should be set in ``setup.cfg``::
@@ -248,7 +266,7 @@ The following parameters should be used during configure::
     --enable-parallel
 
 TODO
-----
+^^^^
 
 * There's no shared library built and MED depends on it. Install libtool. Might have an effect.
 
@@ -280,10 +298,12 @@ METIS
 Add the following to ``Makefile.in``::
 
     COPTIONS = -I$(PREFIX)/include -fPIC -fopenmp
+    LDOPTIONS = -L$(PREFIX)/lib
 
 ``make -j4 && make install prefix="${PREFIX}/public/metis-4.0.3"``
 
 TODO
+^^^^
 
 * Check if `ParMETIS <http://glaros.dtc.umn.edu/gkhome/metis/parmetis/overview>`_ is needed for parallel partitioning. It hasn't been updated since 2013-03-30.
 
@@ -323,6 +343,7 @@ Add the following to ``src/Makefile.inc``::
 Build using ``make -j4 && make install prefix=${PREFIX}/public/scotch-5.1.11``
 
 TODO
+^^^^
 
 Check if PT-SCOTCH was actually built. We want the parallel version. PT_SCOTCH was not built. The libraries don't exist.
 
@@ -361,10 +382,20 @@ Edit ``Makefile``::
 ``make -j4``
 
 TODO
+^^^^
 
 Check BLACS for ``SCALAP``.
 
 Code_Aster
 ----------
 
-Set ``HOME_METIS`` in ``setup.cfg``. Check for others that should be set too.
+Set the following in ``setup.cfg``::
+
+    OTHERLIB = '-L/home/justin/aster/lib'
+    CXXFLAGS = '-I/home/justin/aster/include'
+    MATHLIB = '/home/justin/aster/lib/libopenblas.a'
+    LIBDIR = ['/home/justin/aster/lib', ]
+    INCLUDEDIR = ['/home/justin/aster/include', ]
+    HOME_METIS = '/home/justin/aster/public/metis-4.0.3'
+
+Check if others should be set too.

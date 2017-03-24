@@ -2,11 +2,13 @@
 Finite Element Analysis Multiprocessing System
 ##############################################
 
+.. |copy| unicode:: U+000A9 .. COPYRIGHT SIGN
+
 Copyright |copy| 2017 by `Professor Torsten Calvi Corporation <http://torstencalvi.com/>`_. All rights reserved.
 
-This investigation into FEA via multiprocessing is being done under contract for `Professor Torsten Calvi Corporation <http://torstencalvi.com/>`_. The company has graciously allowed public access to documentation regarding this project.
+This investigation into finite element analysis via multiprocessing is being done under contract for `Professor Torsten Calvi Corporation <http://torstencalvi.com/>`_. The company has graciously allowed public access to documentation regarding this project.
 
-.. |copy| unicode:: U+000A9 .. COPYRIGHT SIGN
+A minimal Ubuntu 16.04 installation is required.
 
 ***********************************
 Autodesk Inventor Professional 2017
@@ -49,9 +51,43 @@ Run Salome: ``LD_PRELOAD="/usr/lib/x86_64-linux-gnu/libgfortran.so.3" ./salome``
 Attempt #2: Code_Aster 12.7 (stable)
 ************************************
 
-Dependencies::
+Required Ubuntu packages::
 
-    Foo
+    build-essential
+    gfortran
+    mpi-default-dev
+    cmake
+    flex
+    bison
+    libtool
+    libz-dev
+    libatlas-base-dev
+    libscalapack-mpi-dev
+
+Optional Ubuntu packages::
+
+    python-qt4  # For eficasQt
+
+Required Python packages::
+
+    setuptools
+    pip
+    matplotlib
+
+.. note::
+   Install the Python packages from `PyPI <https://pypi.python.org/>`_. Extract both ``setuptools`` and ``pip`` and then set ``PYTHONPATH`` to the extracted ``pip`` directory when executing ``bootstrap.py`` for ``setuptools``.
+
+PETSc
+=====
+
+METIS
+=====
+
+ParMETIS
+========
+
+MUMPS
+=====
 
 ************************************
 Attempt #1: Code_Aster 12.7 (stable)
@@ -81,8 +117,6 @@ Make sure that you are always using binaries from ``${PREFIX}/bin``.
 Prerequisites
 =============
 
-    A minimal Ubuntu 16.04 installation is used for this project.
-
 The following packages are required::
 
     build-essential
@@ -97,7 +131,6 @@ The following packages are required::
 
 The following are optional packages::
 
-    grace       # Used by Code_Aster (Code_Aster actually bundles this)
     python-qt4  # For eficasQt
 
 Supporting Python packages (requires python-dev)::

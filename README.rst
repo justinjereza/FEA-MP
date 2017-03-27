@@ -165,6 +165,17 @@ Unused configure options::
     --configModules="PETSc.Configure"
     --optionsModule="config.compilerOptions"
 
+Code_Aster (Parallel)
+=====================
+
+Change the following lines in ``${PREFIX}/etc/codeaster/asrun``::
+
+    mpi_get_procid_cmd : echo $OMPI_COMM_WORLD_RANK
+
+Extract Code_Aster from ``SRC/`` and then copy ``ubuntu_gnu.py`` and ``ubuntu_gnu_mpi.py`` to the extracted directory.
+
+``./waf configure install -j4 -p --prefix="${PREFIX}/PAR12.7" --use-config-dir="${PREFIX}/12.7/share/aster" --use-config="ubuntu_gnu_mpi" --enable-mpi``
+
 ************************************
 Attempt #1: Code_Aster 12.7 (stable)
 ************************************

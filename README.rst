@@ -139,15 +139,24 @@ PETSc
 | Version: 3.7.5
 | Source: http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-lite-3.7.5.tar.gz
 
+TODO
+----
+
+* Check the possibility of just installing all Code_Aster dependencies with PETSc and then installing a parallel version of Code_Aster.
+
 ML and Hypre are enabled.
 
 Build commands::
 
-    ./configure --prefix="${PREFIX}/tmp/petsc" --with-openmp=1 --with-mpi=1 --with-parmetis-dir="${PREFIX}/tmp/parmetis" --download-parmetis=yes --with-ptscotch-dir="${PREFIX}/tmp/ptscotch" --download-ptscotch=yes --with-scalapack=1 --with-x=0 --with-debugging=0 --download-ml=yes --download-hypre=yes
+    ./configure --prefix="${PREFIX}/public/petsc-3.7.5" --COPTFLAGS="-O2" --CXXOPTFLAGS="-O2" --FOPTFLAGS="-O2" --with-openmp=1 --with-mpi=1 --with-scalapack-lib="/usr/lib/libscalapack-openmpi.a" --with-x=0 --with-debugging=0 --download-ml=yes --download-hypre=yes
     make PETSC_DIR="${HOME}/SRC/petsc-3.7.5" PETSC_ARCH="arch-linux2-c-opt" all         # This is indicated at the end of configure
     make PETSC_DIR="${HOME}/SRC/petsc-3.7.5" PETSC_ARCH="arch-linux2-c-opt" install     # This is indicated at the end of make all
     make PETSC_DIR="${HOME}/aster" PETSC_ARCH="" test                                   # This is indicated at the end of make install
     make PETSC_DIR="${HOME}/aster" PETSC_ARCH= streams                                  # This is indicated at the end of make test
+
+..
+    ./configure --prefix="${PREFIX}/tmp/petsc" --with-openmp=1 --with-mpi=1 --with-parmetis-dir="${PREFIX}/tmp/parmetis" --download-parmetis=yes --with-ptscotch-dir="${PREFIX}/tmp/ptscotch" --download-ptscotch=yes --with-scalapack=1 --with-scalapack-dir="/usr/local" --with-x=0 --with-debugging=0 --download-ml=yes --download-hypre=yes
+    ./configure --prefix="${PREFIX}/tmp/petsc" --with-openmp=1 --with-mpi=1 --with-metis-dir="${PREFIX}/public/metis-4.0.3" --download-parmetis=yes --download-ptscotch=yes --with-scalapack-lib="/usr/lib/libscalapack-openmpi.a" --with-x=0 --with-debugging=0 --download-ml=yes --download-hypre=yes
 
 Unused configure options::
 

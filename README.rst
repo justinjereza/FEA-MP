@@ -51,10 +51,15 @@ Run Salome: ``LD_PRELOAD="/usr/lib/x86_64-linux-gnu/libgfortran.so.3" ./salome``
 Attempt #2: Code_Aster 12.7 (stable)
 ************************************
 
+Environment::
+
+    PREFIX="/usr/local"
+
 Required Ubuntu packages::
 
     build-essential
     gfortran
+    mpi-default-bin
     mpi-default-dev
     cmake
     flex
@@ -62,7 +67,7 @@ Required Ubuntu packages::
     libtool
     libz-dev
     libatlas-base-dev
-    libscalapack-mpi-dev
+    #libscalapack-mpi-dev
 
 Optional Ubuntu packages::
 
@@ -76,6 +81,50 @@ Required Python packages::
 
 .. note::
    Install the Python packages from `PyPI <https://pypi.python.org/>`_. Extract both ``setuptools`` and ``pip`` and then set ``PYTHONPATH`` to the extracted ``pip`` directory when executing ``bootstrap.py`` for ``setuptools``.
+
+The following parameters should be used to configure all software::
+
+    --prefix="${PREFIX}"
+
+OpenBLAS
+========
+
+| Version: 0.2.19
+| Source: http://github.com/xianyi/OpenBLAS/archive/v0.2.19.tar.gz
+
+We assume that your ``TARGET`` is an Intel Haswell processor. If not, see `TargetList.txt <https://github.com/xianyi/OpenBLAS/blob/develop/TargetList.txt>`_ for other valid targets.
+
+According to an `R benchmark <http://blog.nguyenvq.com/blog/2014/11/10/optimized-r-and-python-standard-blas-vs-atlas-vs-openblas-vs-mkl/>`_, `OpenBLAS <https://www.openblas.net/>`_ is significantly faster than `Netlib BLAS <http://www.netlib.org/blas/>`_. The `Intel MKL <https://software.intel.com/en-us/intel-mkl>`_ is supposedly the fastest out of all of them.
+
+The following variables should be set::
+
+    USE_OPENMP=1
+    OMP_NUM_THREADS=4 # Not sure if this is used during compile-time or run-time
+    TARGET="HASWELL"
+
+``TARGET="HASWELL" make -j4 && make PREFIX=${PREFIX} install``
+
+ScaLAPACK
+=========
+
+| Version: 2.0.2
+| Installer: http://www.netlib.org/scalapack/scalapack_installer.tgz
+
+The ScaLAPACK installer was tested with the following parameters:
+
+``python setup.py --prefix="${PREFIX}" --mpiincdir="/usr/lib/openmpi/include" --lapacklib="/usr/local/lib/libopenblas.a" --ldflags_c="-O3 -fopenmp" --ldflags_fc="-O3 -fopenmp" --notesting``
+
+Code_Aster (Sequential)
+=======================
+
+This is required to install pre-requisites for parallel computation.
+
+Edit ``setup.cfg`` and ensure that the following are set::
+
+    PREFER_COMPILER = 'GNU_without_MATH'
+    MATHLIB = '/usr/local/lib/libopenblas.a'
+
+``python setup.py --prefix="${HOME}/aster" install``
 
 PETSc
 =====

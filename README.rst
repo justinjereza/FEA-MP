@@ -67,7 +67,7 @@ Required Ubuntu packages::
     libtool
     libz-dev
     libatlas-base-dev
-    #libscalapack-mpi-dev
+    libscalapack-mpi-dev
 
 Optional Ubuntu packages::
 
@@ -86,33 +86,34 @@ The following parameters should be used to configure all software::
 
     --prefix="${PREFIX}"
 
-OpenBLAS
-========
+..
+    OpenBLAS
+    ========
 
-| Version: 0.2.19
-| Source: http://github.com/xianyi/OpenBLAS/archive/v0.2.19.tar.gz
+    | Version: 0.2.19
+    | Source: http://github.com/xianyi/OpenBLAS/archive/v0.2.19.tar.gz
 
-We assume that your ``TARGET`` is an Intel Haswell processor. If not, see `TargetList.txt <https://github.com/xianyi/OpenBLAS/blob/develop/TargetList.txt>`_ for other valid targets.
+    We assume that your ``TARGET`` is an Intel Haswell processor. If not, see `TargetList.txt <https://github.com/xianyi/OpenBLAS/blob/develop/TargetList.txt>`_ for other valid targets.
 
-According to an `R benchmark <http://blog.nguyenvq.com/blog/2014/11/10/optimized-r-and-python-standard-blas-vs-atlas-vs-openblas-vs-mkl/>`_, `OpenBLAS <https://www.openblas.net/>`_ is significantly faster than `Netlib BLAS <http://www.netlib.org/blas/>`_. The `Intel MKL <https://software.intel.com/en-us/intel-mkl>`_ is supposedly the fastest out of all of them.
+    According to an `R benchmark <http://blog.nguyenvq.com/blog/2014/11/10/optimized-r-and-python-standard-blas-vs-atlas-vs-openblas-vs-mkl/>`_, `OpenBLAS <https://www.openblas.net/>`_ is significantly faster than `Netlib BLAS <http://www.netlib.org/blas/>`_. The `Intel MKL <https://software.intel.com/en-us/intel-mkl>`_ is supposedly the fastest out of all of them.
 
-The following variables should be set::
+    The following variables should be set::
 
-    USE_OPENMP=1
-    OMP_NUM_THREADS=4 # Not sure if this is used during compile-time or run-time
-    TARGET="HASWELL"
+        USE_OPENMP=1
+        OMP_NUM_THREADS=4 # Not sure if this is used during compile-time or run-time
+        TARGET="HASWELL"
 
-``TARGET="HASWELL" make -j4 && make PREFIX=${PREFIX} install``
+    ``TARGET="HASWELL" make -j4 && make PREFIX=${PREFIX} install``
 
-ScaLAPACK
-=========
+    ScaLAPACK
+    =========
 
-| Version: 2.0.2
-| Installer: http://www.netlib.org/scalapack/scalapack_installer.tgz
+    | Version: 2.0.2
+    | Installer: http://www.netlib.org/scalapack/scalapack_installer.tgz
 
-The ScaLAPACK installer was tested with the following parameters:
+    The ScaLAPACK installer was tested with the following parameters:
 
-``python setup.py --prefix="${PREFIX}" --mpiincdir="/usr/lib/openmpi/include" --lapacklib="/usr/local/lib/libopenblas.a" --ldflags_c="-O3 -fopenmp" --ldflags_fc="-O3 -fopenmp" --notesting``
+    ``python setup.py --prefix="${PREFIX}" --mpiincdir="/usr/lib/openmpi/include" --lapacklib="/usr/local/lib/libopenblas.a" --ldflags_c="-O3 -fopenmp" --ldflags_fc="-O3 -fopenmp" --notesting``
 
 Code_Aster (Sequential)
 =======================
@@ -122,9 +123,15 @@ This is required to install pre-requisites for parallel computation.
 Edit ``setup.cfg`` and ensure that the following are set::
 
     PREFER_COMPILER = 'GNU_without_MATH'
-    MATHLIB = '/usr/local/lib/libopenblas.a'
+    MATHLIB = '-lblas -llapack'
 
 ``python setup.py --prefix="${HOME}/aster" install``
+``echo "$HOSTNAME cpu=$(cat /proc/cpuinfo | grep processor | wc -l)" > "${PREFIX}/etc/codeaster/mpi_hostfile``
+
+MUMPS
+=====
+
+``INCLUDES="${HOME}/aster/public/metis-4.0.3/include ${HOME}/aster/public/scotch-5.1.11/include" LIBPATH="${HOME}/aster/public/metis-4.0.3/lib ${HOME}/aster/public/scotch-5.1.11/lib" python waf configure install -j4 --prefix="${HOME}/aster/public/mumps-mpi-4.10.0" --enable-mpi --enable-metis --enable-scotch``
 
 PETSc
 =====
@@ -134,9 +141,6 @@ METIS
 
 ParMETIS
 ========
-
-MUMPS
-=====
 
 ************************************
 Attempt #1: Code_Aster 12.7 (stable)

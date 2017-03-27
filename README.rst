@@ -136,11 +136,25 @@ MUMPS
 PETSc
 =====
 
-METIS
-=====
+| Version: 3.7.5
+| Source: http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-lite-3.7.5.tar.gz
 
-ParMETIS
-========
+ML and Hypre are enabled.
+
+Build commands::
+
+    ./configure --prefix="${PREFIX}/tmp/petsc" --with-openmp=1 --with-mpi=1 --with-parmetis-dir="${PREFIX}/tmp/parmetis" --download-parmetis=yes --with-ptscotch-dir="${PREFIX}/tmp/ptscotch" --download-ptscotch=yes --with-scalapack=1 --with-x=0 --with-debugging=0 --download-ml=yes --download-hypre=yes
+    make PETSC_DIR="${HOME}/SRC/petsc-3.7.5" PETSC_ARCH="arch-linux2-c-opt" all         # This is indicated at the end of configure
+    make PETSC_DIR="${HOME}/SRC/petsc-3.7.5" PETSC_ARCH="arch-linux2-c-opt" install     # This is indicated at the end of make all
+    make PETSC_DIR="${HOME}/aster" PETSC_ARCH="" test                                   # This is indicated at the end of make install
+    make PETSC_DIR="${HOME}/aster" PETSC_ARCH= streams                                  # This is indicated at the end of make test
+
+Unused configure options::
+
+    --with-mpi-dir="${PREFIX}/lib/openmpi"
+    --with-shared-libraries=0
+    --configModules="PETSc.Configure"
+    --optionsModule="config.compilerOptions"
 
 ************************************
 Attempt #1: Code_Aster 12.7 (stable)

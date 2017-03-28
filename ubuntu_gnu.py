@@ -29,7 +29,7 @@ def configure(self):
     opts.embed_math = True
 
     opts.enable_hdf5 = True
-    opts.hdf5_libs  = 'hdf5 z dl m'
+    opts.hdf5_libs  = 'hdf5 dl stdc++ z'
     opts.embed_hdf5 = True
 
     opts.enable_med = True

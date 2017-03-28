@@ -69,12 +69,12 @@ Required Ubuntu packages::
     bison
     libtool
     gfortran
-    mpi-default-bin
-    mpi-default-dev
-    lam4-dev
+..    mpi-default-bin
+..    mpi-default-dev
+..    lam4-dev
     libz-dev
     libatlas-base-dev
-    libscalapack-mpi-dev
+..    libscalapack-mpi-dev
 
 Optional Ubuntu packages::
 
@@ -121,6 +121,19 @@ The following parameters should be used to configure all software::
     The ScaLAPACK installer was tested with the following parameters:
 
     ``python setup.py --prefix="${PREFIX}" --mpiincdir="/usr/lib/openmpi/include" --lapacklib="/usr/local/lib/libopenblas.a" --ldflags_c="-O3 -fopenmp" --ldflags_fc="-O3 -fopenmp" --notesting``
+
+OpenMPI
+=======
+
+| Version: 2.0.2
+| Source: https://www.open-mpi.org/software/ompi/v2.0/downloads/openmpi-2.0.2.tar.bz2
+
+
+`Code_Aster (Parallel)`_ requires a statically linked OpenMPI install. Build OpenMPI with the following::
+
+    ./configure --prefix="${PREFIX}" --disable-dlopen --enable-static --without-memory-manager
+    make -j4
+    make install
 
 Code_Aster (Sequential)
 =======================

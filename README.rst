@@ -163,12 +163,12 @@ Edit ``setup.cfg`` and ensure that the following are set::
     CC = 'mpicc'
     F90 = 'mpif90'
     CXX = 'mpiCC'
-    MATHLIB = '-lblas -llapack'
+    MATHLIB = '-L/home/justin/aster/lib -lopenblas'
 
 Finally, execute the following::
 
     python setup.py --prefix="${PREFIX}" install
-    echo "$HOSTNAME cpu=$(cat /proc/cpuinfo | grep processor | wc -l)" > "${PREFIX}/etc/codeaster/mpi_hostfile
+    echo "$HOSTNAME cpu=$(cat /proc/cpuinfo | grep processor | wc -l)" > "${PREFIX}/etc/codeaster/mpi_hostfile"
 
 MUMPS
 =====

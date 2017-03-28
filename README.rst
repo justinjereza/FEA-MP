@@ -135,6 +135,12 @@ OpenMPI
     make -j4
     make install
 
+OpenBLAS
+========
+
+ScaLAPACK
+=========
+
 Code_Aster (Sequential)
 =======================
 

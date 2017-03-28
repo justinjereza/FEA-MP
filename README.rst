@@ -112,16 +112,6 @@ The following parameters should be used to configure all software::
 
     ``TARGET="HASWELL" make -j4 && make PREFIX=${PREFIX} install``
 
-    ScaLAPACK
-    =========
-
-    | Version: 2.0.2
-    | Installer: http://www.netlib.org/scalapack/scalapack_installer.tgz
-
-    The ScaLAPACK installer was tested with the following parameters:
-
-    ``python setup.py --prefix="${PREFIX}" --mpiincdir="/usr/lib/openmpi/include" --lapacklib="/usr/local/lib/libopenblas.a" --ldflags_c="-O3 -fopenmp" --ldflags_fc="-O3 -fopenmp" --notesting``
-
 OpenMPI
 =======
 
@@ -149,6 +139,13 @@ According to an `R benchmark <http://blog.nguyenvq.com/blog/2014/11/10/optimized
 
 ScaLAPACK
 =========
+
+| Version: 2.0.2
+| Installer: http://www.netlib.org/scalapack/scalapack_installer.tgz
+
+The ScaLAPACK installer was tested with the following parameters:
+
+``python setup.py --prefix="${PREFIX}" --mpicc="mpicc" --mpif90="mpif90" --mpiincdir="${PREFIX}/include" --lapacklib="${PREFIX}/lib/libopenblas.a" --ldflags_c="-fopenmp" --ldflags_fc="-fopenmp" --notesting``
 
 Code_Aster (Sequential)
 =======================

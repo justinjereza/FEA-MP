@@ -163,7 +163,9 @@ Edit ``setup.cfg`` and ensure that the following are set::
     CC = 'mpicc'
     F90 = 'mpif90'
     CXX = 'mpiCC'
-    MATHLIB = '-L/home/justin/aster/lib -lopenblas'
+    MATHLIB = '-L/home/justin/aster/lib -lopenblas -lscalapack'
+    LIBDIR=['/home/justin/aster/lib', ]
+    INCLUDEDIR=['/home/justin/aster/include', ]
 
 Finally, execute the following::
 
@@ -173,7 +175,7 @@ Finally, execute the following::
 MUMPS
 =====
 
-``INCLUDES="${PREFIX}/public/metis-4.0.3/include ${PREFIX}/public/scotch-5.1.11/include" LIBPATH="${PREFIX}/public/metis-4.0.3/lib ${PREFIX}/public/scotch-5.1.11/lib" python waf configure install -j4 --prefix="${HOME}/aster/public/mumps-mpi-4.10.0" --enable-mpi --enable-metis --enable-scotch``
+``INCLUDES="${PREFIX}/include ${PREFIX}/public/metis-4.0.3/include ${PREFIX}/public/scotch-5.1.11/include" LIBPATH="${PREFIX}/lib ${PREFIX}/public/metis-4.0.3/lib ${PREFIX}/public/scotch-5.1.11/lib" python waf configure install -j4 --prefix="${HOME}/aster/public/mumps-mpi-4.10.0" --enable-mpi --maths-libs="openblas scalapack" --enable-metis --enable-scotch``
 
 PETSc
 =====

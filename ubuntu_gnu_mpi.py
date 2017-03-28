@@ -33,9 +33,9 @@ def configure(self):
 
     opts.enable_mumps  = True
     opts.mumps_version = '4.10.0'
-    opts.mumps_libs = 'dmumps zmumps smumps cmumps mumps_common pord metis blas blacs-openmpi scalapack-openmpi esmumps scotch scotcherr'
+    opts.mumps_libs = 'dmumps zmumps smumps cmumps mumps_common pord metis openblas scalapack esmumps scotch scotcherr'
 
     opts.enable_petsc = True
-    opts.petsc_libs='atlas blas lapack petsc HYPRE ml'
+    opts.petsc_libs='petsc HYPRE ml'
     opts.embed_petsc = True
 

@@ -67,7 +67,7 @@ Required Ubuntu packages::
     cmake
     flex
     bison
-    libtool
+..    libtool
     gfortran
 ..    mpi-default-bin
 ..    mpi-default-dev
@@ -223,7 +223,7 @@ Extract Code_Aster from ``SRC/`` and then copy ``ubuntu_gnu.py`` and ``ubuntu_gn
 .. note::
     The library order in ``ubuntu_gnu.py`` and ``ubuntu_gnu_mpi.py`` is important or else you will get a static linking error.
 
-``OPTLIB_FLAGS="-Wl,--no-as-needed" ./waf configure install -j4 -p --prefix="${PREFIX}/PAR12.7" --use-config-dir="${PREFIX}/12.7/share/aster" --use-config="ubuntu_gnu_mpi" --enable-mpi``
+``./waf configure install -j4 -p --prefix="${PREFIX}/PAR12.7" --use-config-dir="${PREFIX}/12.7/share/aster" --use-config="ubuntu_gnu_mpi" --enable-mpi``
 
 ************************************
 Attempt #1: Code_Aster 12.7 (stable)

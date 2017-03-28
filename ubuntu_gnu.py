@@ -25,11 +25,11 @@ def configure(self):
         '/home/justin/aster/public/mfront-2.0.3/include',
         ])
 
-    opts.maths_libs = 'blas lapack'
+    opts.maths_libs = 'openblas scalapack'
     opts.embed_math = True
 
-    opts.enable_hdf5 = True
-    opts.hdf5_libs  = 'hdf5 dl stdc++ z'
+    # opts.enable_hdf5 = True
+    opts.hdf5_libs  = 'hdf5 z'
     opts.embed_hdf5 = True
 
     opts.enable_med = True

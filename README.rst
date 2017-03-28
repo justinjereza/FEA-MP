@@ -138,6 +138,15 @@ OpenMPI
 OpenBLAS
 ========
 
+| Version: 0.2.19
+| Source: http://github.com/xianyi/OpenBLAS/archive/v0.2.19.tar.gz
+
+We assume that your ``TARGET`` is an Intel Haswell processor. If not, see `TargetList.txt <https://github.com/xianyi/OpenBLAS/blob/develop/TargetList.txt>`_ for other valid targets.
+
+According to an `R benchmark <http://blog.nguyenvq.com/blog/2014/11/10/optimized-r-and-python-standard-blas-vs-atlas-vs-openblas-vs-mkl/>`_, `OpenBLAS <https://www.openblas.net/>`_ is significantly faster than `Netlib BLAS <http://www.netlib.org/blas/>`_. The `Intel MKL <https://software.intel.com/en-us/intel-mkl>`_ is supposedly the fastest out of all of them.
+
+``CC="mpicc" CXX="mpiCC" FC="mpif90" TARGET="HASWELL" USE_OPENMP=1 NO_AFFINITY=1 make -j4 && make install``
+
 ScaLAPACK
 =========
 

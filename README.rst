@@ -225,6 +225,10 @@ Extract Code_Aster from ``SRC/`` and then copy ``ubuntu_gnu.py`` and ``ubuntu_gn
 
 ``./waf configure install -j4 -p --prefix="${PREFIX}/PAR12.7" --use-config-dir="${PREFIX}/12.7/share/aster" --use-config="ubuntu_gnu_mpi" --enable-mpi``
 
+Append the following to ``${PREFIX}/etc/codeaster/aster``::
+
+    vers : PAR12.7:/home/justin/aster/PAR12.7/share/aster
+
 ************************************
 Attempt #1: Code_Aster 12.7 (stable)
 ************************************

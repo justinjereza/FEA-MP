@@ -53,7 +53,7 @@ Attempt #2: Code_Aster 12.7 (stable)
 
 Environment::
 
-    PREFIX="/usr/local"
+    export PREFIX="/usr/local"
 
 Required Ubuntu packages::
 
@@ -124,6 +124,12 @@ This is required to install pre-requisites for parallel computation.
 Edit ``setup.cfg`` and ensure that the following are set::
 
     PREFER_COMPILER = 'GNU_without_MATH'
+    CC = 'mpicc'
+    F90 = 'mpif90'
+    CXX = 'mpiCC'
+    CFLAGS = '-O2'
+    F90FLAGS = '-O2'
+    CXXFLAGS = '-O2'
     MATHLIB = '-lblas -llapack'
 
     python setup.py --prefix="${PREFIX}" install

@@ -19,12 +19,12 @@ def configure(self):
 
     self.env.prepend_value('LIBPATH', [
         '/home/justin/aster/public/mumps-mpi-4.10.0/lib',
-        '/home/justin/aster/public/petsc-3.7.5/lib',
+        '/home/justin/aster/public/petsc-3.5.4/lib',
         ])
 
     self.env.prepend_value('INCLUDES', [
-        '/home/justin/aster/public/petsc-3.7.5/include',
-        '/home/justin/aster/public/petsc-3.7.5/include/petsc'
+        '/home/justin/aster/public/mumps-mpi-4.10.0/include',
+        '/home/justin/aster/public/petsc-3.5.4/include',
         ])
 
     # self.env.append_value('LIB', ('X11',))
@@ -33,9 +33,9 @@ def configure(self):
 
     opts.enable_mumps  = True
     opts.mumps_version = '4.10.0'
-    opts.mumps_libs = 'dmumps zmumps smumps cmumps mumps_common pord metis scalapack-openmpi blas esmumps scotch scotcherr'
+    opts.mumps_libs = 'dmumps zmumps smumps cmumps mumps_common pord metis blas blacs-openmpi scalapack-openmpi esmumps scotch scotcherr'
 
     opts.enable_petsc = True
-    opts.petsc_libs='petsc HYPRE ml'
+    opts.petsc_libs='atlas blas lapack petsc HYPRE ml'
     opts.embed_petsc = True
 

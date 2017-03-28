@@ -28,9 +28,11 @@ def configure(self):
     opts.maths_libs = 'blas lapack'
     opts.embed_math = True
 
-    opts.enable_med = True
-    opts.hdf5_libs  = 'hdf5 z'
+    opts.enable_hdf5 = True
+    opts.hdf5_libs  = 'hdf5 z dl m'
     opts.embed_hdf5 = True
+
+    opts.enable_med = True
     opts.med_libs  = 'med stdc++'
     opts.embed_med  = True
 

@@ -58,13 +58,14 @@ Environment::
 Required Ubuntu packages::
 
     build-essential
-    gfortran
-    mpi-default-bin
-    mpi-default-dev
     cmake
     flex
     bison
     libtool
+    gfortran
+    mpi-default-bin
+    mpi-default-dev
+    lam4-dev
     libz-dev
     libatlas-base-dev
     libscalapack-mpi-dev
@@ -125,32 +126,33 @@ Edit ``setup.cfg`` and ensure that the following are set::
     PREFER_COMPILER = 'GNU_without_MATH'
     MATHLIB = '-lblas -llapack'
 
-``python setup.py --prefix="${HOME}/aster" install``
-``echo "$HOSTNAME cpu=$(cat /proc/cpuinfo | grep processor | wc -l)" > "${PREFIX}/etc/codeaster/mpi_hostfile``
+    python setup.py --prefix="${PREFIX}" install
+    echo "$HOSTNAME cpu=$(cat /proc/cpuinfo | grep processor | wc -l)" > "${PREFIX}/etc/codeaster/mpi_hostfile
 
 MUMPS
 =====
 
-``INCLUDES="${HOME}/aster/public/metis-4.0.3/include ${HOME}/aster/public/scotch-5.1.11/include" LIBPATH="${HOME}/aster/public/metis-4.0.3/lib ${HOME}/aster/public/scotch-5.1.11/lib" python waf configure install -j4 --prefix="${HOME}/aster/public/mumps-mpi-4.10.0" --enable-mpi --enable-metis --enable-scotch``
+``INCLUDES="${PREFIX}/public/metis-4.0.3/include ${PREFIX}/public/scotch-5.1.11/include" LIBPATH="${PREFIX}/public/metis-4.0.3/lib ${PREFIX}/public/scotch-5.1.11/lib" python waf configure install -j4 --prefix="${HOME}/aster/public/mumps-mpi-4.10.0" --enable-mpi --enable-metis --enable-scotch``
 
 PETSc
 =====
 
-| Version: 3.7.5
-| Source: http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-lite-3.7.5.tar.gz
+| Version: 3.5.4
+| Source: http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-3.5.4.tar.gz
 
 TODO
 ----
 
+* Use version 3.5.4. There are a lot of deprecated functions in 3.7.5.
 * Check the possibility of just installing all Code_Aster dependencies with PETSc and then installing a parallel version of Code_Aster.
 
 ML and Hypre are enabled.
 
 Build commands::
 
-    ./configure --prefix="${PREFIX}/public/petsc-3.7.5" --COPTFLAGS="-O2" --CXXOPTFLAGS="-O2" --FOPTFLAGS="-O2" --with-openmp=1 --with-mpi=1 --with-scalapack-lib="/usr/lib/libscalapack-openmpi.a" --with-x=0 --with-debugging=0 --download-ml=yes --download-hypre=yes
-    make PETSC_DIR="${HOME}/SRC/petsc-3.7.5" PETSC_ARCH="arch-linux2-c-opt" all         # This is indicated at the end of configure
-    make PETSC_DIR="${HOME}/SRC/petsc-3.7.5" PETSC_ARCH="arch-linux2-c-opt" install     # This is indicated at the end of make all
+    ./configure --prefix="${PREFIX}/public/petsc-3.5.4" --COPTFLAGS="-O2" --CXXOPTFLAGS="-O2" --FOPTFLAGS="-O2" --with-shared-libraries=0 --with-mpi=1 --with-scalapack-lib="/usr/lib/libscalapack-openmpi.a" --with-x=0 --with-debugging=0 --download-ml=yes --download-hypre=yes
+    make PETSC_DIR="${HOME}/SRC/petsc-3.5.4" PETSC_ARCH="arch-linux2-c-opt" all         # This is indicated at the end of configure
+    make PETSC_DIR="${HOME}/SRC/petsc-3.5.4" PETSC_ARCH="arch-linux2-c-opt" install     # This is indicated at the end of make all
     make PETSC_DIR="${HOME}/aster" PETSC_ARCH="" test                                   # This is indicated at the end of make install
     make PETSC_DIR="${HOME}/aster" PETSC_ARCH= streams                                  # This is indicated at the end of make test
 
@@ -174,7 +176,10 @@ Change the following lines in ``${PREFIX}/etc/codeaster/asrun``::
 
 Extract Code_Aster from ``SRC/`` and then copy ``ubuntu_gnu.py`` and ``ubuntu_gnu_mpi.py`` to the extracted directory.
 
-``./waf configure install -j4 -p --prefix="${PREFIX}/PAR12.7" --use-config-dir="${PREFIX}/12.7/share/aster" --use-config="ubuntu_gnu_mpi" --enable-mpi``
+.. note::
+    The library order in ``ubuntu_gnu.py`` and ``ubuntu_gnu_mpi.py`` is important or else you will get a static linking error.
+
+``OPTLIB_FLAGS="-Wl,--no-as-needed" ./waf configure install -j4 -p --prefix="${PREFIX}/PAR12.7" --use-config-dir="${PREFIX}/12.7/share/aster" --use-config="ubuntu_gnu_mpi" --enable-mpi``
 
 ************************************
 Attempt #1: Code_Aster 12.7 (stable)

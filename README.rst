@@ -121,16 +121,20 @@ Code_Aster (Sequential)
 
 This is required to install pre-requisites for parallel computation.
 
+Edit ``products.py`` and do the following:
+
+* Add ``--enable-shared`` to ``configure`` of ``setup_hdf5()`` to force the building of shared libraries which ``MED`` requires.
+* Add ``--disable-python`` to ``configure`` of ``setup_med()`` to remove the ``swig2.0`` dependency.
+
 Edit ``setup.cfg`` and ensure that the following are set::
 
     PREFER_COMPILER = 'GNU_without_MATH'
     CC = 'mpicc'
     F90 = 'mpif90'
     CXX = 'mpiCC'
-    CFLAGS = '-O2'
-    F90FLAGS = '-O2'
-    CXXFLAGS = '-O2'
     MATHLIB = '-lblas -llapack'
+
+Finally, execute the following::
 
     python setup.py --prefix="${PREFIX}" install
     echo "$HOSTNAME cpu=$(cat /proc/cpuinfo | grep processor | wc -l)" > "${PREFIX}/etc/codeaster/mpi_hostfile

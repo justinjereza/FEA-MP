@@ -22,6 +22,12 @@ Ansys AIM R17.0
 
 It seems to be able to do the job. The ability to use it with supercomputing clusters was not investigated.
 
+*****************************
+SOLIDWORKS Simulation Premium
+*****************************
+
+SOLIDWORKS Simulation Premium seems to have the right set of `features <http://www.solidworks.com/sw/products/simulation/matrix.htm>`_ required. No tests were done.
+
 ***********
 Salome-Meca
 ***********

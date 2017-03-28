@@ -163,7 +163,7 @@ Edit ``setup.cfg`` and ensure that the following are set::
     CC = 'mpicc'
     F90 = 'mpif90'
     CXX = 'mpiCC'
-    MATHLIB = '-L/home/justin/aster/lib -lopenblas -lscalapack'
+    MATHLIB = '-lopenblas -lscalapack'
     LIBDIR=['/home/justin/aster/lib', ]
     INCLUDEDIR=['/home/justin/aster/include', ]
 
@@ -195,7 +195,7 @@ ML and Hypre are enabled.
 
 Build commands::
 
-    ./configure --prefix="${PREFIX}/public/petsc-3.5.4" --COPTFLAGS="-O2" --CXXOPTFLAGS="-O2" --FOPTFLAGS="-O2" --with-shared-libraries=0 --with-mpi=1 --with-scalapack-lib="/usr/lib/libscalapack-openmpi.a" --with-x=0 --with-debugging=0 --download-ml=yes --download-hypre=yes
+    ./configure --prefix="${PREFIX}/public/petsc-3.5.4" --COPTFLAGS="-O2" --CXXOPTFLAGS="-O2" --FOPTFLAGS="-O2" --with-shared-libraries=0 --with-mpi=1 --with-blas-lapack-lib="${PREFIX}/lib/libopenblas.a" --with-scalapack-lib="${PREFIX}/lib/libscalapack.a" --with-x=0 --with-debugging=0 --download-ml=yes --download-hypre=yes
     make PETSC_DIR="${HOME}/SRC/petsc-3.5.4" PETSC_ARCH="arch-linux2-c-opt" all         # This is indicated at the end of configure
     make PETSC_DIR="${HOME}/SRC/petsc-3.5.4" PETSC_ARCH="arch-linux2-c-opt" install     # This is indicated at the end of make all
     make PETSC_DIR="${HOME}/aster" PETSC_ARCH="" test                                   # This is indicated at the end of make install
@@ -208,7 +208,6 @@ Build commands::
 Unused configure options::
 
     --with-mpi-dir="${PREFIX}/lib/openmpi"
-    --with-shared-libraries=0
     --configModules="PETSc.Configure"
     --optionsModule="config.compilerOptions"
 

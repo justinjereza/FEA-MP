@@ -112,16 +112,16 @@ The following parameters should be used to configure all software::
 
     ``TARGET="HASWELL" make -j4 && make PREFIX=${PREFIX} install``
 
-OpenMPI
-=======
+Open MPI
+========
 
-| Version: 2.0.2
-| Source: https://www.open-mpi.org/software/ompi/v2.0/downloads/openmpi-2.0.2.tar.bz2
+| Version: 1.10.6
+| Source: https://www.open-mpi.org/software/ompi/v1.10/downloads/openmpi-1.10.6.tar.bz2
 
 
 `Code_Aster (Parallel)`_ requires a statically linked OpenMPI install. Build OpenMPI with the following::
 
-    ./configure --prefix="${PREFIX}" --disable-dlopen --enable-static --without-memory-manager
+    ./configure --prefix="${PREFIX}" --disable-dlopen --enable-static # --without-memory-manager
     make -j4
     make install
 
@@ -168,7 +168,7 @@ Edit ``setup.cfg`` and ensure that the following are set::
 Finally, execute the following::
 
     python setup.py --prefix="${PREFIX}" install
-    echo "$HOSTNAME cpu=$(cat /proc/cpuinfo | grep processor | wc -l)" > "${PREFIX}/etc/codeaster/mpi_hostfile"
+    echo "${HOSTNAME} cpu=$(cat /proc/cpuinfo | grep processor | wc -l)" > "${PREFIX}/etc/codeaster/mpi_hostfile"
 
 MUMPS
 =====

@@ -156,6 +156,8 @@ TODO
 * Use version 3.5.4. There are a lot of deprecated functions in 3.7.5.
 * Check the possibility of just installing all Code_Aster dependencies with PETSc and then installing a parallel version of Code_Aster.
 
+Edit ``arch-linux2-c-opt/externalpackages/ml/config/generate-makeoptions.pl`` and change ``defined(@ARGV)`` to just ``@ARGV`` at line 13. ``defined(@foo)`` is deprecated in modern versions of PERL5.
+
 ML and Hypre are enabled.
 
 Build commands::
